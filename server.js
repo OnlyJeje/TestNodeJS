@@ -44,6 +44,9 @@ io.sockets.on('connection', function(socket){
 
 		var data = img.image.replace(/^data:image\/\w+;base64,/, "");
 		var buf = new Buffer(data, 'base64');
+				if(!fs.existsSync('./snap')){
+			fs.mkdirSync('./snap')
+		}
 		fs.writeFile("./snap/" + img.name, buf);
 		
 		console.log("Read HTMLBase file");
@@ -68,6 +71,26 @@ io.sockets.on('connection', function(socket){
 		console.log("EMIT NEW PAGE");
 		io.sockets.emit('newPage', filepath);
 })	
+	socket.on('free', function(){
+		deleteFolderRecursive(__dirname + '/snap');
+		deleteFolderRecursive(__dirname + '/photoHTML');
+		console.log("CLEAN");
+	})
 	console.log('Client connected');
 })
 
+deleteFolderRecursive = function(path) {
+    var files = [];
+    if( fs.existsSync(path) ) {
+        files = fs.readdirSync(path);
+        files.forEach(function(file,index){
+            var curPath = path + "/" + file;
+            if(fs.lstatSync(curPath).isDirectory()) { // recurse
+                deleteFolderRecursive(curPath);
+            } else { // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+};

@@ -7,6 +7,7 @@ var http = require('http');
 var port = 8080;
 var filepath = "";
 var test = "";
+
 /*var server = http.createServer(function(req, res) {
 	var app = express();
   //res.writeHead(200,{'Content-Type': 'text/plain'});
@@ -46,19 +47,24 @@ io.sockets.on('connection', function(socket){
 		fs.writeFile("./snap/" + img.name, buf);
 		
 		console.log("Read HTMLBase file");
+		/* Read HTML File*/
 		var file = fs.readFileSync(__dirname + "/html/htmlBase.html",'utf-8')
 		var filename = img.name.replace(".png",".html");
 		filepath = __dirname + "/photoHTML/" + filename;
+
+		/*Load file to use DOM*/
 		$ = cheerio.load(file);
-		
 		var imagePath = "../snap/" + img.name;
 		test = img.name;
 		$('#pictureToDisplay').attr('src',img.name);
 		console.log("Write HTML File")
-		fs.writeFileSync(filepath, $.html());
-				if(!fs.existsSync('./photoHTML')){
+
+		/*Write file and send it to client*/
+		f(!fs.existsSync('./photoHTML')){
 			fs.mkdirSync('./photoHTML')
 		}
+		fs.writeFileSync(filepath, $.html());
+
 		console.log("EMIT NEW PAGE");
 		io.sockets.emit('newPage', filepath);
 })	

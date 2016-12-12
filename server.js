@@ -56,6 +56,9 @@ io.sockets.on('connection', function(socket){
 		$('#pictureToDisplay').attr('src',img.name);
 		console.log("Write HTML File")
 		fs.writeFileSync(filepath, $.html());
+				if(!fs.existsSync('./photoHTML')){
+			fs.mkdirSync('./photoHTML')
+		}
 		console.log("EMIT NEW PAGE");
 		io.sockets.emit('newPage', filepath);
 })	

@@ -35,6 +35,7 @@ io.sockets.on('connection', function(socket){
 		$('#pictureToDisplay').attr('src',imagePath);
 		console.log("Write HTML File")
 		fs.writeFile(filepath, $.html());
+		io.sockets.emit('newPage', filepath);
 })	
 	console.log('Client connected');
 })

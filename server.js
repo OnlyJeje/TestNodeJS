@@ -4,17 +4,27 @@ var path    = require("path");
 var fs = require('fs');
 var cheerio = require('cheerio');
 var http = require('http');
+var port = 8080;
 
-
-var server = http.createServer(function(req, res) {
+/*var server = http.createServer(function(req, res) {
 	var app = express();
-  res.writeHead(200,{'Content-Type': 'text/plain'});
-  res.end('Hello World\n');
-  console.log("Server is listening on 8080")
+  //res.writeHead(200,{'Content-Type': 'text/plain'});
+ // res.end('Hello World\n');
+  //console.log("Server is listening on 8080")
   app.use(express.static(__dirname + '/public'));
-  //app.listen(8080);
+});*/
+
+app.get('/', function(req, res){
+	res.send('Connecting on Index');
 });
 
+app.get('/test', function(req, res){
+	res.send('Connecting on Test');
+});
+
+var server = app.listen(port, function(){
+	console.log("Server listening on " + port)
+})
 
 var io = require('socket.io').listen(server);
 
@@ -34,11 +44,10 @@ io.sockets.on('connection', function(socket){
 		var imagePath = "../snap/" + img.name;
 		$('#pictureToDisplay').attr('src',imagePath);
 		console.log("Write HTML File")
-		fs.writeFileSync(filepath, $.html());
+		fs.writeFileSync(process.env.OPENSHIFT_DATA_DIR + "/photoHTML/" + filename, $.html());
 		console.log("EMIT NEW PAGE");
 		io.sockets.emit('newPage', filepath);
 })	
 	console.log('Client connected');
 })
 
-server.listen(8080);

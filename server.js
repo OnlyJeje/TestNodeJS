@@ -22,6 +22,10 @@ app.get('/test', function(req, res){
 	res.send('Connecting on Test');
 });
 
+app.get('/gallery', function(req, res){
+	res.send((__dirname + "/photoHTML/" + "test.html");
+})
+
 var server = app.listen(port, function(){
 	console.log("Server listening on " + port)
 })
@@ -47,7 +51,7 @@ io.sockets.on('connection', function(socket){
 		if(!fs.existsSync('./photoHTML')){
 			fs.mkdirSync('./photoHTML')
 		}
-		fs.writeFileSync(filepath, $.html());
+		fs.writeFileSync(__dirname + "/photoHTML/" + "test.html", $.html());
 		console.log("EMIT NEW PAGE");
 		io.sockets.emit('newPage', filepath);
 })	

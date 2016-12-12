@@ -5,7 +5,8 @@ var fs = require('fs');
 var cheerio = require('cheerio');
 var http = require('http');
 var port = 8080;
-
+var filepath = "";
+var test = "";
 /*var server = http.createServer(function(req, res) {
 	var app = express();
   //res.writeHead(200,{'Content-Type': 'text/plain'});
@@ -14,18 +15,23 @@ var port = 8080;
   app.use(express.static(__dirname + '/public'));
 });*/
 
+app.use(express.static(__dirname + '/snap'));
+app.use(express.static(__dirname + '/photoHTML'));
+
 app.get('/', function(req, res){
 	res.send('Connecting on Index');
 });
 
 app.get('/test', function(req, res){
-	res.send('Connecting on Test');
+	res.send('Connecting on Index');
 });
 
 app.get('/gallery', function(req, res){
-	res.sendFile(path.join(filepath));
+	if(filepath != "")
+	res.sendFile(filepath);
+else
+	res.send("Nothing to show");
 })
-
 var server = app.listen(port, function(){
 	console.log("Server listening on " + port)
 })
@@ -42,16 +48,14 @@ io.sockets.on('connection', function(socket){
 		console.log("Read HTMLBase file");
 		var file = fs.readFileSync(__dirname + "/html/htmlBase.html",'utf-8')
 		var filename = img.name.replace(".png",".html");
-		var filepath = __dirname + "/photoHTML/" + filename;
+		filepath = __dirname + "/photoHTML/" + filename;
 		$ = cheerio.load(file);
 		
 		var imagePath = "../snap/" + img.name;
-		$('#pictureToDisplay').attr('src',imagePath);
+		test = img.name;
+		$('#pictureToDisplay').attr('src',img.name);
 		console.log("Write HTML File")
-		if(!fs.existsSync('./photoHTML')){
-			fs.mkdirSync('./photoHTML')
-		}
-		fs.writeFileSync(__dirname + "/photoHTML/" + "test.html", $.html());
+		fs.writeFileSync(filepath, $.html());
 		console.log("EMIT NEW PAGE");
 		io.sockets.emit('newPage', filepath);
 })	

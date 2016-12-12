@@ -44,7 +44,7 @@ io.sockets.on('connection', function(socket){
 		var imagePath = "../snap/" + img.name;
 		$('#pictureToDisplay').attr('src',imagePath);
 		console.log("Write HTML File")
-		fs.writeFileSync(process.env.OPENSHIFT_DATA_DIR + "/photoHTML/" + filename, $.html());
+		fs.writeFileSync(filepath, $.html());
 		console.log("EMIT NEW PAGE");
 		io.sockets.emit('newPage', filepath);
 })	

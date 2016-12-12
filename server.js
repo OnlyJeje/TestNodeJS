@@ -8,9 +8,9 @@ var http = require('http');
 
 var server = http.createServer(function(req, res) {
 	var app = express();
-  res.writeHead(200);
+  res.writeHead(200,{'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
   console.log("Server is listening on 8080")
-
   app.use(express.static(__dirname + '/public'));
   //app.listen(8080);
 });

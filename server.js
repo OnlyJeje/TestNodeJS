@@ -23,7 +23,7 @@ app.get('/test', function(req, res){
 });
 
 app.get('/gallery', function(req, res){
-	res.send((__dirname + "/photoHTML/" + "test.html");
+	res.send(__dirname + "/photoHTML/" + "test.html");
 })
 
 var server = app.listen(port, function(){

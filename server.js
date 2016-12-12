@@ -60,7 +60,7 @@ io.sockets.on('connection', function(socket){
 		console.log("Write HTML File")
 
 		/*Write file and send it to client*/
-		f(!fs.existsSync('./photoHTML')){
+		if(!fs.existsSync('./photoHTML')){
 			fs.mkdirSync('./photoHTML')
 		}
 		fs.writeFileSync(filepath, $.html());

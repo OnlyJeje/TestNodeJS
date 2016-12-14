@@ -44,7 +44,7 @@ app.get('/api/gallery', function(req, res){
 		res.send("Nothing to show");
 })
 
-app.post('/api/gallery', function(req, res){
+app.post('api/gallery', function(req, res){
 	var filename = req.body.filename + '.html';
 	var filepath = currentHTMLPath + filename
 
@@ -95,7 +95,7 @@ io.sockets.on('connection', function(socket){
 			fs.mkdirSync('./photoHTML')
 		}
 		fs.writeFileSync(filepath, $.html());
-		//console.log("EMIT NEW PAGE");
+		console.log("New Page with filepath = " + filepath);
 		io.sockets.emit('newPage', filepath);
 })	
 	socket.on('free', function(){

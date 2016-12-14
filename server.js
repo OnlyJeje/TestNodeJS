@@ -21,8 +21,9 @@ var bodyParser = require('body-parser');
   app.use(express.static(__dirname + '/public'));
 });*/
 
-app.use(express.static(__dirname + '/snap'));
-app.use(express.static(__dirname + '/photoHTML'));
+app.use(express.static(__dirname + '/snap/'));
+app.use(express.static(__dirname + '/photoHTML/'));
+app.use(express.static(__dirname + '/html/'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 

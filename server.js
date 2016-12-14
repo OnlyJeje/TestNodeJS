@@ -23,7 +23,7 @@ var bodyParser = require('body-parser');
 
 //app.use(express.static(__dirname + '/snap/'));
 
-	app.use(express.static(__dirname + '/public'));
+	app.use(express.static('public'));
 	app.use(express.static(__dirname + '/photoHTML'));
 	app.use(express.static(__dirname + '/snap'));
 	app.use(bodyParser.json());
@@ -97,7 +97,7 @@ io.sockets.on('connection', function(socket){
                 + currentDate.getSeconds());
 
 		/* Read HTML File*/
-		var file = fs.readFileSync(__dirname + "/html/htmlBase.html",'utf-8')
+		var file = fs.readFileSync(__dirname + "/public/html/htmlBase.html",'utf-8')
 		var filename = img.name.replace(".png",".html");
 		filepath = __dirname + "/photoHTML/" + filename;
 		var imagePath = __dirname + "/snap/" + filename.replace('.html','.png')
@@ -121,7 +121,8 @@ io.sockets.on('connection', function(socket){
 			fs.mkdirSync('./photoHTML')
 			console.log("PHOTOHTML CREATED")
 		}
-		
+			app.use(express.static(__dirname + '/photoHTML'));
+	app.use(express.static(__dirname + '/snap'));
 		fs.writeFileSync(filepath, $.html());
 		console.log("New Page with filepath = " + filepath);
 		io.sockets.emit('newPage', filepath);

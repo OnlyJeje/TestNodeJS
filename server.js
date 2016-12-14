@@ -95,7 +95,7 @@ io.sockets.on('connection', function(socket){
 			console.log("PICTURE EXIST");
 		else
 			console.log("PICTURE NOT HERE")
-		$('#pictureToDisplay').attr('src', imagePath);
+		$('#pictureToDisplay').attr(img.name);
 		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 
                 + currentDate.getSeconds())
@@ -109,7 +109,8 @@ io.sockets.on('connection', function(socket){
 		fs.writeFileSync(filepath, $.html());
 		console.log("New Page with filepath = " + filepath);
 		io.sockets.emit('newPage', filepath);
-})	
+})
+
 	socket.on('free', function(){
 		deleteFolderRecursive(__dirname + '/snap');
 		deleteFolderRecursive(__dirname + '/photoHTML');

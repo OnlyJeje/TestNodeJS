@@ -8,7 +8,7 @@ var port = 8080;
 var filepath = "";
 var test = "";
 var currentHTMLPath = __dirname + '/photoHTML/';
-
+var currentImagePaht = __dirname + '/snap/';
 var currentDate = new Date();
 
 var bodyParser = require('body-parser');
@@ -33,6 +33,16 @@ app.get('/', function(req, res){
 app.get('/api/test', function(req, res){
 	res.send('Connecting on Index');
 });
+
+app.get('api/getPicture', function(req, res){
+	var filename = req.query.filename;
+	console.log(filename);
+	var filepath = currentImagePath + filename.replace('.html', '.png');
+	if(filepath != "")
+		res.sendFile(filepath);
+	else
+		res.send("Nothing to show");
+})
 
 app.get('/api/gallery', function(req, res){
 	var filename = req.query.filename;

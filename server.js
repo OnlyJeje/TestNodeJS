@@ -21,7 +21,7 @@ var bodyParser = require('body-parser');
   app.use(express.static(__dirname + '/public'));
 });*/
 
-app.use(express.static(__dirname + '/snap'));
+app.use(express.static('snap'));
 app.use(express.static(__dirname + '/photoHTML'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -86,7 +86,7 @@ io.sockets.on('connection', function(socket){
 		var imagePath = "../snap/" + img.name;
 		test = img.name;
 		console.log(img.name);
-		$('#pictureToDisplay').attr('src',__dirname + '/snap/'+img.name);
+		$('#pictureToDisplay').attr('src', imagePath);
 		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 
                 + currentDate.getSeconds())

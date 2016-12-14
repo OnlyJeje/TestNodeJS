@@ -118,8 +118,8 @@ io.sockets.on('connection', function(socket){
 			fs.mkdirSync('./photoHTML')
 			console.log("PHOTOHTML CREATED")
 		}
-			app.use(express.static(__dirname + '/photoHTML'));
-	app.use(express.static(__dirname + '/snap'));
+		app.use(express.static(__dirname + '/photoHTML'));
+		app.use(express.static(__dirname + '/snap'));
 		fs.writeFileSync(filepath, $.html());
 		console.log("New Page with filepath = " + filepath);
 		io.sockets.emit('newPage', filepath);

@@ -7,6 +7,11 @@ var http = require('http');
 var port = 8080;
 var filepath = "";
 var test = "";
+var currentHTMLPath = __dirname + '/photoHTML/';
+
+var currentDate = new Date();
+
+var bodyParser = require('body-parser');
 
 /*var server = http.createServer(function(req, res) {
 	var app = express();
@@ -18,38 +23,59 @@ var test = "";
 
 app.use(express.static(__dirname + '/snap'));
 app.use(express.static(__dirname + '/photoHTML'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function(req, res){
 	res.send('Connecting on Index');
 });
 
-app.get('/test', function(req, res){
+app.get('/api/test', function(req, res){
 	res.send('Connecting on Index');
 });
 
-app.get('/gallery', function(req, res){
+app.get('/api/gallery', function(req, res){
+	var filename = req.query.filename;
+	console.log(filename);
+	var filepath = currentHTMLPath + filename;
 	if(filepath != "")
+		res.sendFile(filepath);
+	else
+		res.send("Nothing to show");
+})
+
+app.post('/api/gallery', function(req, res){
+	var filename = req.body.filename + '.html';
+	var filepath = currentHTMLPath + filename
+
+	console.log("delta");
 	res.sendFile(filepath);
-else
-	res.send("Nothing to show");
 })
+
 var server = app.listen(port, function(){
-	console.log("Server listening on " + port)
+		currentDate = new Date();
+
+	console.log("Server listening on " + port +" "+currentDate.getHours() + ":"  
+                + currentDate.getMinutes() + ":" 
+                + currentDate.getSeconds())
 })
+
 
 var io = require('socket.io').listen(server);
 
 io.sockets.on('connection', function(socket){
 	socket.on('image', function(img){
-
 		var data = img.image.replace(/^data:image\/\w+;base64,/, "");
 		var buf = new Buffer(data, 'base64');
 				if(!fs.existsSync('./snap')){
 			fs.mkdirSync('./snap')
 		}
 		fs.writeFile("./snap/" + img.name, buf);
-		
-		console.log("Read HTMLBase file");
+			currentDate = new Date();
+
+		console.log("Read HTMLBase file"+" "+currentDate.getHours() + ":"  
+                + currentDate.getMinutes() + ":" 
+                + currentDate.getSeconds());
 		/* Read HTML File*/
 		var file = fs.readFileSync(__dirname + "/html/htmlBase.html",'utf-8')
 		var filename = img.name.replace(".png",".html");
@@ -60,15 +86,16 @@ io.sockets.on('connection', function(socket){
 		var imagePath = "../snap/" + img.name;
 		test = img.name;
 		$('#pictureToDisplay').attr('src',img.name);
-		console.log("Write HTML File")
+		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
+                + currentDate.getMinutes() + ":" 
+                + currentDate.getSeconds())
 
 		/*Write file and send it to client*/
 		if(!fs.existsSync('./photoHTML')){
 			fs.mkdirSync('./photoHTML')
 		}
 		fs.writeFileSync(filepath, $.html());
-
-		console.log("EMIT NEW PAGE");
+		//console.log("EMIT NEW PAGE");
 		io.sockets.emit('newPage', filepath);
 })	
 	socket.on('free', function(){
@@ -76,7 +103,17 @@ io.sockets.on('connection', function(socket){
 		deleteFolderRecursive(__dirname + '/photoHTML');
 		console.log("CLEAN");
 	})
-	console.log('Client connected');
+
+	socket.on('getPicture', function(filename){
+		filepath = __dirname + "/photoHTML/" + filename
+	})
+
+
+
+	currentDate = new Date();
+	console.log('Client connected'+" "+currentDate.getHours() + ":"  
+                + currentDate.getMinutes() + ":" 
+                + currentDate.getSeconds());
 })
 
 deleteFolderRecursive = function(path) {

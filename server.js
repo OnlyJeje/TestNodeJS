@@ -30,11 +30,11 @@ app.get('/', function(req, res){
 	res.send('Connecting on Index');
 });
 
-app.get('api/test', function(req, res){
+app.get('/api/test', function(req, res){
 	res.send('Connecting on Index');
 });
 
-app.get('api/gallery', function(req, res){
+app.get('/api/gallery', function(req, res){
 	var filename = req.query.filename;
 	console.log(filename);
 	var filepath = currentHTMLPath + filename;
@@ -44,13 +44,13 @@ app.get('api/gallery', function(req, res){
 		res.send("Nothing to show");
 })
 
-app.post('api/gallery', function(req, res){
+/*app.post('api/gallery', function(req, res){
 	var filename = req.body.filename + '.html';
 	var filepath = currentHTMLPath + filename
 
 	console.log("delta");
 	res.sendFile(filepath);
-})
+})*/
 
 var server = app.listen(port, function(){
 		currentDate = new Date();

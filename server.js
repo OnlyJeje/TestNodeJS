@@ -10,7 +10,7 @@ var test = "";
 var currentHTMLPath = __dirname + '/photoHTML/';
 var currentImagePath = __dirname + '/snap/';
 var currentDate = new Date();
-
+var urlgetPicture = "http://nodejstestserver-testprojectnodejs.44fs.preview.openshiftapps.com/api/getPicture?filename=";
 var bodyParser = require('body-parser');
 
 /*var server = http.createServer(function(req, res) {
@@ -108,7 +108,7 @@ io.sockets.on('connection', function(socket){
 		test = img.name;
 		console.log(img.name);
 
-		$('#pictureToDisplay').attr('src', imagePath);
+		$('#pictureToDisplay').attr('src', urlgetPicture + img.name);
 		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 
                 + currentDate.getSeconds())

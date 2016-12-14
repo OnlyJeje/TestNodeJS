@@ -34,7 +34,7 @@ app.get('/api/test', function(req, res){
 	res.send('Connecting on Index');
 });
 
-app.get('api/getPicture', function(req, res){
+app.get('/api/getPicture', function(req, res){
 	var filename = req.query.filename;
 	console.log(filename);
 	var filepath = currentImagePath + filename.replace('.html', '.png');

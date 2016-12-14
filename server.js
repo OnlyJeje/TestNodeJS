@@ -22,10 +22,13 @@ var bodyParser = require('body-parser');
 });*/
 
 //app.use(express.static(__dirname + '/snap/'));
-app.use(express.static(__dirname + '/photoHTML/'));
-app.use(express.static(__dirname + '/html/'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+
+	app.use(express.static(__dirname + '/public'));
+	app.use(express.static(__dirname + '/photoHTML'));
+	app.use(express.static(__dirname + '/snap'));
+	app.use(bodyParser.json());
+	app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.get('/', function(req, res){
 	res.send('Connecting on Index');
@@ -39,6 +42,7 @@ app.get('/api/getPicture', function(req, res){
 	var filename = req.query.filename;
 	console.log(filename);
 	var filepath = currentImagePath + filename.replace('.html', '.png');
+	console.log(filepath);
 	if(filepath != "")
 		res.sendFile(filepath);
 	else
@@ -85,6 +89,7 @@ io.sockets.on('connection', function(socket){
 		}
 
 		fs.writeFile("./snap/" + img.name, buf);
+
 			currentDate = new Date();
 
 		console.log("Read HTMLBase file"+" "+currentDate.getHours() + ":"  

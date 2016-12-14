@@ -21,7 +21,7 @@ var bodyParser = require('body-parser');
   app.use(express.static(__dirname + '/public'));
 });*/
 
-app.use(express.static(__dirname + '/snap/'));
+//app.use(express.static(__dirname + '/snap/'));
 app.use(express.static(__dirname + '/photoHTML/'));
 app.use(express.static(__dirname + '/html/'));
 app.use(bodyParser.json());
@@ -106,7 +106,7 @@ io.sockets.on('connection', function(socket){
 			console.log("PICTURE EXIST");
 		else
 			console.log("PICTURE NOT HERE")
-		$('#pictureToDisplay').attr('src', img.name);
+		$('#pictureToDisplay').attr('src', currentImagePath + img.name);
 		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 
                 + currentDate.getSeconds())

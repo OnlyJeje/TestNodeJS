@@ -67,15 +67,19 @@ io.sockets.on('connection', function(socket){
 	socket.on('image', function(img){
 		var data = img.image.replace(/^data:image\/\w+;base64,/, "");
 		var buf = new Buffer(data, 'base64');
-				if(!fs.existsSync('./snap')){
+		
+		if(!fs.existsSync('./snap')){
 			fs.mkdirSync('./snap')
+			console.log("SNAP FOLDER CREATED")
 		}
+
 		fs.writeFile("./snap/" + img.name, buf);
 			currentDate = new Date();
 
 		console.log("Read HTMLBase file"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 
                 + currentDate.getSeconds());
+
 		/* Read HTML File*/
 		var file = fs.readFileSync(__dirname + "/html/htmlBase.html",'utf-8')
 		var filename = img.name.replace(".png",".html");
@@ -95,7 +99,9 @@ io.sockets.on('connection', function(socket){
 		/*Write file and send it to client*/
 		if(!fs.existsSync('./photoHTML')){
 			fs.mkdirSync('./photoHTML')
+			console.log("PHOTOHTML CREATED")
 		}
+		
 		fs.writeFileSync(filepath, $.html());
 		console.log("New Page with filepath = " + filepath);
 		io.sockets.emit('newPage', filepath);

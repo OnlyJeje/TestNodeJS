@@ -91,6 +91,10 @@ io.sockets.on('connection', function(socket){
 		//var imagePath = __dirname + "/../snap/" + img.name;
 		test = img.name;
 		console.log(img.name);
+		if(fs.existsSync(imagePath))
+			console.log("PICTURE EXIST");
+		else
+			console.log("PICTURE NOT HERE")
 		$('#pictureToDisplay').attr('src', imagePath);
 		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 

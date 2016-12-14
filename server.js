@@ -21,7 +21,7 @@ var bodyParser = require('body-parser');
   app.use(express.static(__dirname + '/public'));
 });*/
 
-app.use(express.static('snap'));
+app.use(express.static(__dirname + '/snap'));
 app.use(express.static(__dirname + '/photoHTML'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -80,10 +80,11 @@ io.sockets.on('connection', function(socket){
 		var file = fs.readFileSync(__dirname + "/html/htmlBase.html",'utf-8')
 		var filename = img.name.replace(".png",".html");
 		filepath = __dirname + "/photoHTML/" + filename;
-
+		var imagePath = __dirname + "/snap/" + filename.replace('.html','.png')
+		
 		/*Load file to use DOM*/
 		$ = cheerio.load(file);
-		var imagePath = "../snap/" + img.name;
+		//var imagePath = __dirname + "/../snap/" + img.name;
 		test = img.name;
 		console.log(img.name);
 		$('#pictureToDisplay').attr('src', imagePath);

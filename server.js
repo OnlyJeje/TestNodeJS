@@ -108,7 +108,7 @@ io.sockets.on('connection', function(socket){
 		test = img.name;
 		console.log(img.name);
 
-		$('#pictureToDisplay').attr('src', "../snap/" + img.name);
+		$('#pictureToDisplay').attr('src', "/../snap/" + img.name);
 		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 
                 + currentDate.getSeconds())

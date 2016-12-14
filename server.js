@@ -95,7 +95,7 @@ io.sockets.on('connection', function(socket){
 			console.log("PICTURE EXIST");
 		else
 			console.log("PICTURE NOT HERE")
-		$('#pictureToDisplay').attr(img.name);
+		$('#pictureToDisplay').attr('src', img.name);
 		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 
                 + currentDate.getSeconds())

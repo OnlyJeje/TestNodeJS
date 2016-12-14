@@ -83,9 +83,9 @@ io.sockets.on('connection', function(socket){
 
 		/*Load file to use DOM*/
 		$ = cheerio.load(file);
-		var imagePath = "../snap/" + img.name;
+		var imagePath = __dirname + "/snap/" + img.name;
 		test = img.name;
-		$('#pictureToDisplay').attr('src',img.name);
+		$('#pictureToDisplay').attr('src',imagePath);
 		console.log("Write HTML File"+" "+currentDate.getHours() + ":"  
                 + currentDate.getMinutes() + ":" 
                 + currentDate.getSeconds())

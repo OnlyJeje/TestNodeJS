@@ -1,0 +1,94 @@
+html body {
+	margin: 0;
+	height: 1920px;
+	width: 1080px;
+}
+
+body #homeMenu {
+}
+
+#camContainer {
+	width: 1280px;
+	height: 720px;
+}
+
+@font-face {
+	font-family: "Montserrat-Bold";
+	src: url("../font/Montserrat-Bold.otf") format('otf');
+
+}
+
+@font-face {	
+	font-family: "Montserrat-Light";
+	src: url("../font/Montserrat-Light.otf") format('otf');
+
+}
+
+button {
+	font-family: "Montserrat-Bold", sans-serif;
+}
+
+.animation{
+/*	height: 0px;
+	width: 0px;*/
+}
+
+video::-webkit-media-controls-fullscreen-button {
+    display: none;
+}
+
+.noselect {
+	  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+#takeASelfie{
+
+	position: relative;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50vh;
+	transform: translateY(-50%);
+}
+
+nav {
+	position: relative;
+	text-align: left;
+	margin-top: 25px;
+	margin-left: 25px;
+}
+
+footer {
+	position: relative;
+	margin-bottom: 0px;
+	width: 100%;
+	text-align: center;
+}
+
+footer #footerImg {
+
+}
+
+img#beginText{
+		position: relative;
+		display: block;
+		margin-top: 300px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+button#beginButton{
+		position: relative;
+		display: block;
+	border: 0;
+	background-image: url("../img/touch.png");
+	background-size: 158px 189px;
+		margin-left: auto;
+	margin-right: auto;
+}

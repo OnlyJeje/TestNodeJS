@@ -8,7 +8,7 @@ var port = 8080;
 var filepath = "";
 var test = "";
 var currentHTMLPath = __dirname + '/photoHTML/';
-var currentImagePaht = __dirname + '/snap/';
+var currentImagePath = __dirname + '/snap/';
 var currentDate = new Date();
 
 var bodyParser = require('body-parser');

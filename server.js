@@ -30,11 +30,11 @@ app.get('/', function(req, res){
 	res.send('Connecting on Index');
 });
 
-app.get('/api/test', function(req, res){
+app.get('api/test', function(req, res){
 	res.send('Connecting on Index');
 });
 
-app.get('/api/gallery', function(req, res){
+app.get('api/gallery', function(req, res){
 	var filename = req.query.filename;
 	console.log(filename);
 	var filepath = currentHTMLPath + filename;
